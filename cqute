@@ -1,0 +1,46 @@
+#!/bin/bash
+New(){
+  mkdir $1
+  if [ $? = 0 ]
+  then
+    touch "$1/main.c"
+    mkdir "$1/build"
+    touch "$1/CMakeLists.txt"
+  fi
+}
+Make(){
+  cmake ./
+  if [ $? = 0 ]
+  then
+    make -C build
+  fi
+}
+Init(){
+  touch ./main.c
+  mkdir ./build
+  touch ./CMakeLists.txt
+}
+Help(){
+  echo
+  echo "new <project_name> : creates a new project with name <project_name>"
+  echo "make               : uses cmake to build the project"
+  echo
+}
+
+case $1 in
+  new)
+    New $2
+    ;;
+  make)
+    Make
+    ;;
+  init)
+    Init
+    ;;
+  help)
+    Help
+    ;;
+  *)
+    echo "command not recognised, 'cqute help' for a list of options" 
+    ;;
+esac
