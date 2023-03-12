@@ -1,11 +1,15 @@
 #!/bin/bash
+CreateFiles(){
+  mkdir "$1/build"
+  touch "$1/CMakeLists.txt"
+  mkdir "$1/src"
+  git init
+}
 New(){
   mkdir $1
   if [ $? = 0 ]
   then
-    touch "$1/main.c"
-    mkdir "$1/build"
-    touch "$1/CMakeLists.txt"
+    CreateFiles $1
   fi
 }
 Make(){
@@ -16,9 +20,7 @@ Make(){
   fi
 }
 Init(){
-  touch ./main.c
-  mkdir ./build
-  touch ./CMakeLists.txt
+  CreateFiles .
 }
 Help(){
   echo
